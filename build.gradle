@@ -1,0 +1,19 @@
+plugins {
+    id 'org.jetbrains.intellij' version '1.0'
+}
+
+group 'com.foxrider'
+version '1.0'
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+repositories{
+    mavenCentral()
+}
+
+dependencies {
+
+}
+
+intellij {
+    version '2020.3.2'
+}

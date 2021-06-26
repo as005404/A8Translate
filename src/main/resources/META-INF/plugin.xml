@@ -1,0 +1,24 @@
+<idea-plugin>
+    <id>com.foxrider.AITranslate+</id>
+    <name>AITranslate+</name>
+    <vendor email="isachenko.foxrider@yandex.by" url="">MyCompany</vendor>
+
+    <description>
+        Fork of AITranslate with some improvements
+    </description>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <action id="com.foxrider.actions.TranslateAction" class="com.foxrider.actions.TranslateAction"
+                text="TranslateAction" description="Translate the selected text">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl SLASH" second-keystroke="ctrl T"/>
+        </action>
+    </actions>
+</idea-plugin>
