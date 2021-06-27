@@ -1,5 +1,7 @@
 package com.foxrider.actions;
 
+import com.detectlanguage.errors.APIError;
+import com.foxrider.detect.LanguageDetection;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
@@ -16,8 +18,13 @@ public class TranslateAction extends AnAction {
         String selectedText = editor.getSelectionModel().getSelectedText();
 //        String encode = URLEncoder.encode(selectedText, StandardCharsets.UTF_8);
         if(StringUtils.isNotEmpty(selectedText)){
-            Messages.showMessageDialog(selectedText, "AITranslate+", Messages.getInformationIcon());
+            try {
+                Messages.showMessageDialog(LanguageDetection.detectLanguage(selectedText).detectedLang, "AITranslate+", Messages.getInformationIcon());
+            } catch (APIError apiError) {
+                apiError.printStackTrace();
+            }
         }
+        // сделать запрос на сервис определения языка
         // сделать запрос какому-нибудь сервису переводов с параметрами определить язык с переводом на заданный в настройках язык
         // отобразить ответ сервиса в окошке возможно даже взять из оригинального AITranslate
     }
