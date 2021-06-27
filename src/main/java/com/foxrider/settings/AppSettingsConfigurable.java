@@ -37,9 +37,10 @@ public class AppSettingsConfigurable implements Configurable {
     @Override
     public boolean isModified() {
         AppSettingsState settings = AppSettingsState.getInstance();
-        boolean modifiedApi = !settingsComponent.getDetectLanguageApiKey().equalsIgnoreCase(settings.detectionLanguageApiKey);
-        boolean modifiedLanguage = !settingsComponent.getTranslateLanguageText().equalsIgnoreCase(settings.translateLanguageInto);
-        return modifiedApi || modifiedLanguage;
+        boolean isApiModified = !settingsComponent.getDetectLanguageApiKey().equalsIgnoreCase(settings.detectionLanguageApiKey);
+        boolean isLanguageModified = !settingsComponent.getTranslateLanguageText().equalsIgnoreCase(settings.translateLanguageInto);
+        boolean isUserAgentModified = !settingsComponent.getUserAgent().equalsIgnoreCase(settings.userAgent);
+        return isApiModified || isLanguageModified || isUserAgentModified;
     }
 
     @Override
@@ -47,6 +48,7 @@ public class AppSettingsConfigurable implements Configurable {
         AppSettingsState settings = AppSettingsState.getInstance();
         settings.detectionLanguageApiKey = settingsComponent.getDetectLanguageApiKey();
         settings.translateLanguageInto = settingsComponent.getTranslateLanguageText();
+        settings.userAgent = settingsComponent.getUserAgent();
     }
 
     @Override
@@ -54,6 +56,7 @@ public class AppSettingsConfigurable implements Configurable {
         AppSettingsState settings = AppSettingsState.getInstance();
         settingsComponent.setDetectLanguageApiKey(settings.detectionLanguageApiKey);
         settingsComponent.setTranslateLanguageText(settings.translateLanguageInto);
+        settingsComponent.setUserAgent(settings.userAgent);
     }
 
     @Override

@@ -14,8 +14,9 @@ import org.jetbrains.annotations.Nullable;
 )
 public class AppSettingsState implements PersistentStateComponent<AppSettingsState> {
 
-    public String detectionLanguageApiKey = "Write here api key from ";
+    public String detectionLanguageApiKey = "Can use 10 minute mail to get it";
     public String translateLanguageInto = "ru";
+    public String userAgent = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0";
 
 
     public static AppSettingsState getInstance() {
