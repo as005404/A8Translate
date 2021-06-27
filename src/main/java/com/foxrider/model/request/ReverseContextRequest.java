@@ -1,4 +1,4 @@
-package com.foxrider.model;
+package com.foxrider.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

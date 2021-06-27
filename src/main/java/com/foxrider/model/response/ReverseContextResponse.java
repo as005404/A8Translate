@@ -1,4 +1,4 @@
-package com.foxrider.model;
+package com.foxrider.model.response;
 
 public class ReverseContextResponse {
 }

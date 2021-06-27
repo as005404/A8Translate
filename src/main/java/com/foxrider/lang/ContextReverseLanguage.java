@@ -23,7 +23,7 @@ public enum ContextReverseLanguage {
         this.detectedLang = detectedLang;
     }
 
-    ContextReverseLanguage valueFor(String detectedLang){
+    public static ContextReverseLanguage valueFor(String detectedLang){
         return Arrays.stream(ContextReverseLanguage.values())
                 .filter(ts->ts.detectedLang.equalsIgnoreCase(detectedLang))
                 .findFirst().orElse(ContextReverseLanguage.NOT_FOUND);
