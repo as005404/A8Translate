@@ -12,13 +12,16 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <applicationService serviceImplementation="com.foxrider.settings.AppSettingsState"/>
+            <applicationConfigurable parentId="tools" instance="com.foxrider.settings.AppSettingsConfigurable"
+                                     id="org.intellij.sdk.settings.AppSettingsConfigurable"
+                                     displayName="AITranslate+ Settings"/>
     </extensions>
 
     <actions>
         <action id="com.foxrider.actions.TranslateAction" class="com.foxrider.actions.TranslateAction"
-                text="TranslateAction" description="Translate the selected text">
-            <keyboard-shortcut keymap="$default" first-keystroke="ctrl SLASH" second-keystroke="ctrl T"/>
+                text="TranslateAction" description="Translate selected text">
+            <keyboard-shortcut keymap="$default" first-keystroke="alt T"/>
         </action>
     </actions>
 </idea-plugin>
