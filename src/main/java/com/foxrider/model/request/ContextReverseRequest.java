@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Model that represents request that come to context reverso
  */
 
-public class ReverseContextRequest {
+public class ContextReverseRequest {
     @JsonProperty("from")
     private String translateFrom;
     @JsonProperty("to")
@@ -17,13 +17,13 @@ public class ReverseContextRequest {
     private Options options;
 
 
-    public ReverseContextRequest() {}
+    public ContextReverseRequest() {}
 
-    public ReverseContextRequest(String translateFrom, String translateTo, String textToTranslate, String format) {
+    public ContextReverseRequest(String translateFrom, String translateTo, String textToTranslate) {
         this.translateFrom = translateFrom;
         this.translateTo = translateTo;
         this.textToTranslate = textToTranslate;
-        this.format = format;
+        this.format = "text";
         this.options = new Options();
     }
 
