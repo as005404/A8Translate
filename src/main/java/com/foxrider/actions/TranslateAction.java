@@ -4,6 +4,7 @@ import com.foxrider.detect.DefaultLanguageDetector;
 import com.foxrider.lang.ContextReverseLanguage;
 import com.foxrider.settings.AppSettingsState;
 import com.foxrider.tranlate.ContextReverseTranslator;
+import com.foxrider.utils.TranslationUtils;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
@@ -32,8 +33,10 @@ public class TranslateAction extends AnAction {
                         ContextReverseLanguage.valueFor(settings.translateLanguageInto).lang,
                         selectedText
                 );
-            }else {
-                // todo: show some pop up with this "language is not maintained"
+                System.out.println(translatedText);
+                TranslationUtils.showPopupWindow(editor, translatedText);
+            } else {
+                TranslationUtils.showPopupWindow(editor, "this language is not supported");
             }
 
         }
