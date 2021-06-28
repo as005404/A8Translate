@@ -22,13 +22,13 @@ public class TranslateController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TranslateController.class);
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
     AppSettingsState settings = AppSettingsState.getInstance();
-    private static String REVERSE_CONTEXT_API_URL = "https://api.reverso.net/translate/v1/translation";
-    private static String HOST_URL = "api.reverso.net";
-    private String translateLanguageFrom;
-    private String translateLanguageInto;
-    private String textToTranslate;
+    private static final String REVERSE_CONTEXT_API_URL = "https://api.reverso.net/translate/v1/translation";
+    private static final String HOST_URL = "api.reverso.net";
+    private final String translateLanguageFrom;
+    private final String translateLanguageInto;
+    private final String textToTranslate;
 
     public TranslateController(String translateLanguageFrom, String translateLanguageInto, String textToTranslate) {
         this.translateLanguageFrom = translateLanguageFrom;
@@ -46,7 +46,7 @@ public class TranslateController {
                     .setHeader(HttpHeaders.USER_AGENT, settings.userAgent)
                     .setHeader(HttpHeaders.CONTENT_TYPE, "application/json")
                     .setHeader(HttpHeaders.ACCEPT, "*/*")
-                    .setHeader(HttpHeaders.HOST,HOST_URL)
+                    .setHeader(HttpHeaders.HOST, HOST_URL)
                     .setHeader(HttpHeaders.CONNECTION, "keep-alive")
                     .setEntity(new StringEntity(json))
                     .build();

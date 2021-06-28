@@ -13,9 +13,9 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.foxrider.settings.AppSettingsState"/>
-            <applicationConfigurable parentId="tools" instance="com.foxrider.settings.AppSettingsConfigurable"
-                                     id="org.intellij.sdk.settings.AppSettingsConfigurable"
-                                     displayName="AITranslate+ Settings"/>
+        <applicationConfigurable parentId="tools" instance="com.foxrider.settings.AppSettingsConfigurable"
+                                 id="org.intellij.sdk.settings.AppSettingsConfigurable"
+                                 displayName="AITranslate+ Settings"/>
     </extensions>
 
     <actions>

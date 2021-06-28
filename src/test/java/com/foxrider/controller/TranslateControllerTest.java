@@ -4,8 +4,6 @@ import com.foxrider.lang.ContextReverseLanguage;
 import com.foxrider.model.response.ContextReverseResponse;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class TranslateControllerTest {
 
     @Test
