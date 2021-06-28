@@ -1,6 +1,6 @@
 package com.foxrider.actions;
 
-import com.foxrider.detect.LanguageDetection;
+import com.foxrider.detect.DefaultLanguageDetector;
 import com.foxrider.lang.ContextReverseLanguage;
 import com.foxrider.settings.AppSettingsState;
 import com.foxrider.tranlate.ContextReverseTranslator;
@@ -24,7 +24,7 @@ public class TranslateAction extends AnAction {
         String selectedText = editor.getSelectionModel().getSelectedText();
 //        String encode = URLEncoder.encode(selectedText, StandardCharsets.UTF_8);
         if (StringUtils.isNotEmpty(selectedText)) {
-            ContextReverseLanguage contextReverseLanguage = LanguageDetection.detectLanguage(selectedText);
+            ContextReverseLanguage contextReverseLanguage = DefaultLanguageDetector.detectLanguage(selectedText);
             if (!contextReverseLanguage.equals(ContextReverseLanguage.valueOf("NOT_FOUND"))) {
                 AppSettingsState settings = AppSettingsState.getInstance();
                 translatedText = new ContextReverseTranslator().getTranslationForText(

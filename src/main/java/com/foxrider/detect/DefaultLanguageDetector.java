@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class LanguageDetection{
-    private static final Logger LOGGER = LoggerFactory.getLogger(LanguageDetection.class);
+public class DefaultLanguageDetector {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultLanguageDetector.class);
 
     public static ContextReverseLanguage detectLanguage(String text) {
         AppSettingsState settings = AppSettingsState.getInstance();
