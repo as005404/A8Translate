@@ -1,8 +1,8 @@
 package com.foxrider.parser;
 
-import org.apache.http.client.fluent.Response;
+import com.foxrider.model.response.ContextReverseResponse;
 
 public interface ResponseParser {
 
-    String parse(Response response);
+    String parse(ContextReverseResponse response);
 }
