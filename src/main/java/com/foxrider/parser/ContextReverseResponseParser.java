@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//todo: make camelCase into normal text
-// make reverse translation from one prefference language to another(core language)
+// todo: make camelCase into normal text
+// todo: make reverse translation from one prefference language to another(core language)
 public class ContextReverseResponseParser implements ResponseParser {
     private final static Integer TRANSLATION_LIMIT = 7;
     @Override

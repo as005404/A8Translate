@@ -36,6 +36,7 @@ public class TranslateAction extends AnAction {
                 System.out.println(translatedText);
                 TranslationUtils.showPopupWindow(editor, translatedText);
             } else {
+                // todo: make it in different color popup
                 TranslationUtils.showPopupWindow(editor, "this language is not supported");
             }
 
