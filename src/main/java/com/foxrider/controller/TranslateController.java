@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class TranslateController {
 
@@ -44,11 +45,10 @@ public class TranslateController {
             HttpUriRequest httpPost = RequestBuilder.post()
                     .setUri(REVERSE_CONTEXT_API_URL)
                     .setHeader(HttpHeaders.USER_AGENT, settings.userAgent)
-                    .setHeader(HttpHeaders.CONTENT_TYPE, "application/json")
-                    .setHeader(HttpHeaders.ACCEPT, "*/*")
+                    .setHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8")
                     .setHeader(HttpHeaders.HOST, HOST_URL)
                     .setHeader(HttpHeaders.CONNECTION, "keep-alive")
-                    .setEntity(new StringEntity(json))
+                    .setEntity(new StringEntity(json, StandardCharsets.UTF_8))
                     .build();
 
             HttpResponse response = client.execute(httpPost);
