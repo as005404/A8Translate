@@ -14,37 +14,49 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+//todo: make listener on baloon when click on baloon with translation it will replace selected text
 public class TranslateAction extends AnAction {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TranslateAction.class);
-    private String translatedText;
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
         Editor editor = event.getData(PlatformDataKeys.EDITOR);
         String selectedText = editor.getSelectionModel().getSelectedText();
-//        String encode = URLEncoder.encode(selectedText, StandardCharsets.UTF_8);
-        if (StringUtils.isNotEmpty(selectedText)) {
-            ContextReverseLanguage contextReverseLanguage = DefaultLanguageDetector.detectLanguage(selectedText);
-            if (!contextReverseLanguage.equals(ContextReverseLanguage.valueOf("NOT_FOUND"))) {
-                AppSettingsState settings = AppSettingsState.getInstance();
-                translatedText = new ContextReverseTranslator().getTranslationForText(
-                        contextReverseLanguage.lang,
-                        ContextReverseLanguage.valueFor(settings.translateLanguageInto).lang,
-                        selectedText
-                );
-                System.out.println(translatedText);
-                TranslationUtils.showPopupWindow(editor, translatedText);
-            } else {
-                // todo: make it in different color popup
-                TranslationUtils.showPopupWindow(editor, "this language is not supported");
-            }
 
+        if (StringUtils.isEmpty(selectedText)) {
+            return;
         }
 
-        // сделать запрос какому-нибудь сервису переводов с параметрами определить язык с переводом на заданный в настройках язык
-        // отобразить ответ сервиса в окошке возможно даже взять из оригинального AITranslate
+        ContextReverseLanguage detectedLanguage = DefaultLanguageDetector.detectLanguage(selectedText);
+        AppSettingsState settings = AppSettingsState.getInstance();
+        String translatedText;
+
+        if (detectedLanguage.equals(ContextReverseLanguage.valueOf("NOT_FOUND"))) {
+
+            TranslationUtils.showPopupWindow(editor, "This language is not supported.\n" +
+                    "List of supported languages: [en, ru, fr, pl, it, es, de]");
+        } else if (detectedLanguage.equals(ContextReverseLanguage.valueFor(settings.translateLanguageInto))) {
+
+            translatedText = new ContextReverseTranslator().getTranslationForText(
+                    ContextReverseLanguage.valueFor(settings.translateLanguageInto).lang,
+                    ContextReverseLanguage.ENGLISH.lang,
+                    selectedText
+            );
+
+            TranslationUtils.showPopupWindow(editor, translatedText);
+        } else {
+
+            translatedText = new ContextReverseTranslator().getTranslationForText(
+                    detectedLanguage.lang,
+                    ContextReverseLanguage.valueFor(settings.translateLanguageInto).lang,
+                    selectedText
+            );
+
+            TranslationUtils.showPopupWindow(editor, translatedText);
+        }
     }
+
 
     @Override
     public boolean isDumbAware() {
