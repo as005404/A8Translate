@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Locale;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +16,7 @@ public class CamelCaseUtils {
         return selectedText.matches(camelAndPascalCasePattern);
     }
 
-    public String divideCamelCaseIntoLowerCaseWords() {
+    public String divideCamelCaseIntoLowerCaseWordsOrDefault() {
         if (!isCamelCase()) {
             return selectedText;
         }
@@ -30,6 +28,6 @@ public class CamelCaseUtils {
                 i++;
             }
         }
-        return builder.toString().toLowerCase(Locale.ENGLISH);
+        return builder.toString();
     }
 }

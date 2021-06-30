@@ -54,7 +54,7 @@ public class TranslateController {
             HttpResponse response = client.execute(httpPost);
 
             HttpEntity httpEntity = response.getEntity();
-            String content = EntityUtils.toString(httpEntity, "utf-8");
+            String content = EntityUtils.toString(httpEntity, StandardCharsets.UTF_8);
             EntityUtils.consume(httpEntity);
 
             return mapper.readValue(content, ContextReverseResponse.class);

@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// todo: make camelCase into normal text
-// todo: make reverse translation from one prefference language to another(core language)
 public class ContextReverseResponseParser implements ResponseParser {
     private final static Integer TRANSLATION_LIMIT = 5;
 
@@ -19,7 +17,7 @@ public class ContextReverseResponseParser implements ResponseParser {
         StringBuilder builder = new StringBuilder();
         List<String> translate = new ArrayList<>(response.getTranslation());
 
-        //todo: results may be empty
+        // results may be empty
         ContextResults results = response.getContextResults();
         if (results != null && results.getResults().size() != 0) {
             List<String> fromResults = results.getResults()

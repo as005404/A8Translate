@@ -4,6 +4,7 @@ import com.foxrider.detect.DefaultLanguageDetector;
 import com.foxrider.lang.ContextReverseLanguage;
 import com.foxrider.settings.AppSettingsState;
 import com.foxrider.tranlate.ContextReverseTranslator;
+import com.foxrider.utils.CamelCaseUtils;
 import com.foxrider.utils.TranslationUtils;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -11,13 +12,10 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.editor.Editor;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 //todo: make listener on baloon when click on baloon with translation it will replace selected text
 public class TranslateAction extends AnAction {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TranslateAction.class);
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
@@ -27,6 +25,8 @@ public class TranslateAction extends AnAction {
         if (StringUtils.isEmpty(selectedText)) {
             return;
         }
+
+        selectedText = new CamelCaseUtils(selectedText).divideCamelCaseIntoLowerCaseWordsOrDefault();
 
         ContextReverseLanguage detectedLanguage = DefaultLanguageDetector.detectLanguage(selectedText);
         AppSettingsState settings = AppSettingsState.getInstance();
@@ -46,7 +46,6 @@ public class TranslateAction extends AnAction {
 
             TranslationUtils.showPopupWindow(editor, translatedText);
         } else {
-
             translatedText = new ContextReverseTranslator().getTranslationForText(
                     detectedLanguage.lang,
                     ContextReverseLanguage.valueFor(settings.translateLanguageInto).lang,

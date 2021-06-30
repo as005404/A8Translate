@@ -9,14 +9,14 @@ public class CamelCaseUtilsTest {
     @Test
     public void dividePascalCaseIntoLowerCaseWordsTest() {
         CamelCaseUtils utils = new CamelCaseUtils("DivideCamelCaseIntoLowerCaseWords");
-        String s = utils.divideCamelCaseIntoLowerCaseWords();
+        String s = utils.divideCamelCaseIntoLowerCaseWordsOrDefault();
         System.out.println(s);
     }
 
     @Test
     public void divideCamelCaseIntoLowerCaseWordsTest() {
         CamelCaseUtils utils = new CamelCaseUtils("divideCamelCaseIntoLowerCaseWords");
-        String s = utils.divideCamelCaseIntoLowerCaseWords();
+        String s = utils.divideCamelCaseIntoLowerCaseWordsOrDefault();
         System.out.println(s);
     }
 
