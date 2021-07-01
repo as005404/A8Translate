@@ -9,7 +9,7 @@ public class ContextReverseTranslator {
 
     public String getTranslationForText(String langFrom, String langTo, String textToTranslate) {
         ContextReverseResponse response = new TranslateController(langFrom, langTo, textToTranslate).postForObject();
-        ResponseParser parser = new ContextReverseResponseParser();
-        return parser.parse(response);
+        ResponseParser parser = new ContextReverseResponseParser(response);
+        return parser.parse();
     }
 }
