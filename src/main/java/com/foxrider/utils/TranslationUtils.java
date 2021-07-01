@@ -11,8 +11,9 @@ import java.awt.*;
 
 public class TranslationUtils {
     private static final String MESSAGE_WHEN_RESULT_IS_EMPTY = "There is no translation for this text.\n Try to select a different part of the text.";
+
     public static void showPopupWindow(Editor editor, String result) {
-        if(Strings.isNullOrEmpty(result)){
+        if (Strings.isNullOrEmpty(result)) {
             buildBaloon(editor, MESSAGE_WHEN_RESULT_IS_EMPTY);
         }
         buildBaloon(editor, result);

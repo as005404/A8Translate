@@ -24,7 +24,7 @@ public class TranslateController {
     private static final Logger LOGGER = LoggerFactory.getLogger(TranslateController.class);
 
     private final ObjectMapper mapper = new ObjectMapper();
-    AppSettingsState settings = AppSettingsState.getInstance();
+    private final AppSettingsState settings = AppSettingsState.getInstance();
     private static final String REVERSE_CONTEXT_API_URL = "https://api.reverso.net/translate/v1/translation";
     private static final String HOST_URL = "api.reverso.net";
     private final String translateLanguageFrom;
@@ -59,7 +59,6 @@ public class TranslateController {
 
             return mapper.readValue(content, ContextReverseResponse.class);
         } catch (IOException e) {
-            e.printStackTrace();
             LOGGER.error("Error while mapping to objecct" + e);
         }
         return null;
