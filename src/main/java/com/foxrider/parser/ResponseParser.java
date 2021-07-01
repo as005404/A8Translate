@@ -4,5 +4,5 @@ import com.foxrider.model.response.ContextReverseResponse;
 
 public interface ResponseParser {
 
-    String parse(ContextReverseResponse response);
+    String parse();
 }

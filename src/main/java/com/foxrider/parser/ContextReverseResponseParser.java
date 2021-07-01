@@ -4,22 +4,39 @@ import com.foxrider.model.response.ContextResults;
 import com.foxrider.model.response.ContextReverseResponse;
 import com.foxrider.model.response.Result;
 import com.google.common.base.Strings;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Parse ContextReverseResponse to lines of text with \n
+ */
+@Getter
+@Setter
+@AllArgsConstructor
 public class ContextReverseResponseParser implements ResponseParser {
+
     private final static Integer TRANSLATION_LIMIT = 5;
+    private ContextReverseResponse response;
 
     @Override
-    public String parse(ContextReverseResponse response) {
+    public String parse() {
         StringBuilder builder = new StringBuilder();
+
+        // response may be empty
+        if (response == null || response.getTranslation() == null || response.getTranslation().size() == 0) {
+            return builder.toString();
+        }
+
         List<String> translate = new ArrayList<>(response.getTranslation());
 
         // results may be empty
         ContextResults results = response.getContextResults();
-        if (results != null && results.getResults().size() != 0) {
+        if (results != null && results.getResults() != null && results.getResults().size() != 0) {
             List<String> fromResults = results.getResults()
                     .stream()
                     .map(Result::getTranslation)
@@ -27,6 +44,7 @@ public class ContextReverseResponseParser implements ResponseParser {
 
             translate.addAll(fromResults);
         }
+
         translate.stream()
                 .map(String::toLowerCase)
                 .distinct()
