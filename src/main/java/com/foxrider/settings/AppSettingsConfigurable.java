@@ -13,9 +13,6 @@ public class AppSettingsConfigurable implements Configurable {
 
     private AppSettingsComponent settingsComponent;
 
-    // A default constructor with no arguments is required because this implementation
-    // is registered as an applicationConfigurable EP
-
     @Nls(capitalization = Nls.Capitalization.Title)
     @Override
     public String getDisplayName() {
@@ -38,7 +35,7 @@ public class AppSettingsConfigurable implements Configurable {
     public boolean isModified() {
         AppSettingsState settings = AppSettingsState.getInstance();
         boolean isApiModified = !settingsComponent.getDetectLanguageApiKey().equalsIgnoreCase(settings.detectionLanguageApiKey);
-        boolean isLanguageModified = !settingsComponent.getTranslateLanguageText().equalsIgnoreCase(settings.translateLanguageInto);
+        boolean isLanguageModified = !settingsComponent.getTargetLanguageText().equalsIgnoreCase(settings.targetLanguage);
         boolean isUserAgentModified = !settingsComponent.getUserAgent().equalsIgnoreCase(settings.userAgent);
         return isApiModified || isLanguageModified || isUserAgentModified;
     }
@@ -47,7 +44,7 @@ public class AppSettingsConfigurable implements Configurable {
     public void apply() {
         AppSettingsState settings = AppSettingsState.getInstance();
         settings.detectionLanguageApiKey = settingsComponent.getDetectLanguageApiKey();
-        settings.translateLanguageInto = settingsComponent.getTranslateLanguageText();
+        settings.targetLanguage = settingsComponent.getTargetLanguageText();
         settings.userAgent = settingsComponent.getUserAgent();
     }
 
@@ -55,7 +52,7 @@ public class AppSettingsConfigurable implements Configurable {
     public void reset() {
         AppSettingsState settings = AppSettingsState.getInstance();
         settingsComponent.setDetectLanguageApiKey(settings.detectionLanguageApiKey);
-        settingsComponent.setTranslateLanguageText(settings.translateLanguageInto);
+        settingsComponent.setTargetLanguageText(settings.targetLanguage);
         settingsComponent.setUserAgent(settings.userAgent);
     }
 

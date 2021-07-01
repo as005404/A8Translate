@@ -1,23 +1,31 @@
 package com.foxrider.settings;
 
+import com.foxrider.lang.ContextReverseLanguage;
+import com.intellij.openapi.ui.ComboBox;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBTextField;
 import com.intellij.util.ui.FormBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import java.util.Arrays;
 
 public class AppSettingsComponent {
 
+    private final String[] languages = Arrays.stream(ContextReverseLanguage.values())
+            .map(item -> item.detectedLang)
+            .filter(item -> !"not_found".equalsIgnoreCase(item))
+            .toArray(String[]::new);
+
     private final JPanel myMainPanel;
-    private final JBTextField translateLanguage = new JBTextField();
+    private final ComboBox<String> targetLanguage = new ComboBox<>(languages);
     private final JBTextField detectLanguageApiKey = new JBTextField();
     private final JBTextField userAgent = new JBTextField();
 
+
     public AppSettingsComponent() {
-        // todo: add menu to translateLanguage instead of plain text
         myMainPanel = FormBuilder.createFormBuilder()
-                .addLabeledComponent(new JBLabel("Enter the language to translate into\n (ru/en/de/it/fr/es/pl): "), translateLanguage, 5, true)
+                .addLabeledComponent(new JBLabel("Choose language to translate into: "), targetLanguage, 5, true)
                 .addLabeledComponent(new JBLabel("Enter api from https://detectlanguage.com\n (due to 1000 uses per day): "), detectLanguageApiKey, 5, true)
                 .addLabeledComponent(new JBLabel("Enter your user-agent value(can be taken from your browser request)\n default value can be broken any time: "), userAgent, 5, true)
                 .addComponentFillVertically(new JPanel(), 0)
@@ -29,16 +37,16 @@ public class AppSettingsComponent {
     }
 
     public JComponent getPreferredFocusedComponent() {
-        return translateLanguage;
+        return targetLanguage;
     }
 
     @NotNull
-    public String getTranslateLanguageText() {
-        return translateLanguage.getText();
+    public String getTargetLanguageText() {
+        return targetLanguage.getItem();
     }
 
-    public void setTranslateLanguageText(@NotNull String newText) {
-        translateLanguage.setText(newText);
+    public void setTargetLanguageText(@NotNull String newText) {
+        targetLanguage.setItem(newText);
     }
 
     @NotNull

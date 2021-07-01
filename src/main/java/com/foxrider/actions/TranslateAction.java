@@ -13,20 +13,23 @@ import com.intellij.openapi.editor.Editor;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
-//todo: make listener on baloon when click on baloon with translation it will replace selected text
-public class TranslateAction extends AnAction {
+import java.util.Objects;
 
+// todo: если язык с которого переводят является английским и язык на который переводят является английским (как когда с русского на англ переводили),
+//  то ничего не делать, потому что нет смысла переводить на какой-то другой общий язык кроме ангельского
+//todo: make listener on balloon when click on balloon with translation it will replace selected text
+public class TranslateAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
         Editor editor = event.getData(PlatformDataKeys.EDITOR);
-        String selectedText = editor.getSelectionModel().getSelectedText();
+        String selectedText = Objects.requireNonNull(editor.getSelectionModel().getSelectedText());
 
         if (StringUtils.isEmpty(selectedText)) {
             return;
         }
 
-        selectedText = new CamelCaseUtils(selectedText).divideCamelCaseIntoLowerCaseWordsOrDefault();
+        selectedText = new CamelCaseUtils(selectedText.trim()).divideCamelCaseIntoLowerCaseWordsOrDefault();
 
         ContextReverseLanguage detectedLanguage = DefaultLanguageDetector.detectLanguage(selectedText);
         AppSettingsState settings = AppSettingsState.getInstance();
@@ -36,10 +39,10 @@ public class TranslateAction extends AnAction {
 
             TranslationUtils.showPopupWindow(editor, "This language is not supported.\n" +
                     "List of supported languages: [en, ru, fr, pl, it, es, de]");
-        } else if (detectedLanguage.equals(ContextReverseLanguage.valueFor(settings.translateLanguageInto))) {
+        } else if (detectedLanguage.equals(ContextReverseLanguage.valueFor(settings.targetLanguage))) {
 
             translatedText = new ContextReverseTranslator().getTranslationForText(
-                    ContextReverseLanguage.valueFor(settings.translateLanguageInto).lang,
+                    ContextReverseLanguage.valueFor(settings.targetLanguage).lang,
                     ContextReverseLanguage.ENGLISH.lang,
                     selectedText
             );
@@ -48,7 +51,7 @@ public class TranslateAction extends AnAction {
         } else {
             translatedText = new ContextReverseTranslator().getTranslationForText(
                     detectedLanguage.lang,
-                    ContextReverseLanguage.valueFor(settings.translateLanguageInto).lang,
+                    ContextReverseLanguage.valueFor(settings.targetLanguage).lang,
                     selectedText
             );
 
