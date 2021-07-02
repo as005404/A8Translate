@@ -6,14 +6,17 @@ import com.intellij.openapi.ui.popup.Balloon;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.ui.Gray;
 import com.intellij.ui.JBColor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
 
+@Slf4j
 public class TranslationUtils {
     private static final String MESSAGE_WHEN_RESULT_IS_EMPTY = "There is no translation for this text.\n Try to select a different part of the text.";
 
     public static void showPopupWindow(Editor editor, String result) {
         if (Strings.isNullOrEmpty(result)) {
+            log.info("TranslationUtils. No translation result");
             buildBaloon(editor, MESSAGE_WHEN_RESULT_IS_EMPTY);
         }
         buildBaloon(editor, result);

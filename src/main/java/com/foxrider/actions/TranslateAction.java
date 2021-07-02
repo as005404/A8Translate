@@ -10,22 +10,26 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.editor.Editor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-// todo: если язык с которого переводят является английским и язык на который переводят является английским (как когда с русского на англ переводили),
+// todo: если язык с которого переводят является английским и язык на который переводят является английским (как когда target language русский и он переводит на англ),
 //  то ничего не делать, потому что нет смысла переводить на какой-то другой общий язык кроме ангельского
 //todo: make listener on balloon when click on balloon with translation it will replace selected text
+@Slf4j
 public class TranslateAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
         Editor editor = event.getData(PlatformDataKeys.EDITOR);
+        // todo: assert editor
         String selectedText = Objects.requireNonNull(editor.getSelectionModel().getSelectedText());
 
         if (StringUtils.isEmpty(selectedText)) {
+            log.info("TranslateAction. Selected text is empty");
             return;
         }
 

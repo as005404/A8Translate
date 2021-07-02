@@ -29,6 +29,9 @@ public class ContextReverseRequest {
         this.options = new Options();
     }
 
+    /**
+     * This class is static but it is needed in request to ContextReverso
+     */
     static class Options {
         public boolean contextResults = true;
         public boolean languageDetection = true;

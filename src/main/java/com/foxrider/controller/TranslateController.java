@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.foxrider.model.request.ContextReverseRequest;
 import com.foxrider.model.response.ContextReverseResponse;
 import com.foxrider.settings.AppSettingsState;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -13,20 +14,19 @@ import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+@Slf4j
 public class TranslateController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TranslateController.class);
+    private static final String REVERSE_CONTEXT_API_URL = "https://api.reverso.net/translate/v1/translation";
+    private static final String HOST_URL = "api.reverso.net";
 
     private final ObjectMapper mapper = new ObjectMapper();
     private final AppSettingsState settings = AppSettingsState.getInstance();
-    private static final String REVERSE_CONTEXT_API_URL = "https://api.reverso.net/translate/v1/translation";
-    private static final String HOST_URL = "api.reverso.net";
+
     private final String translateLanguageFrom;
     private final String translateLanguageInto;
     private final String textToTranslate;
@@ -59,7 +59,7 @@ public class TranslateController {
 
             return mapper.readValue(content, ContextReverseResponse.class);
         } catch (IOException e) {
-            LOGGER.error("Error while mapping to objecct" + e);
+            log.error("Error while mapping to objecct" + e);
         }
         return null;
     }

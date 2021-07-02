@@ -5,13 +5,12 @@ import com.detectlanguage.Result;
 import com.detectlanguage.errors.APIError;
 import com.foxrider.lang.ContextReverseLanguage;
 import com.foxrider.settings.AppSettingsState;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
 public class DefaultLanguageDetector {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultLanguageDetector.class);
 
     public static ContextReverseLanguage detectLanguage(String text) {
         AppSettingsState settings = AppSettingsState.getInstance();
@@ -27,7 +26,7 @@ public class DefaultLanguageDetector {
                     .orElse(ContextReverseLanguage.NOT_FOUND);
 
         } catch (APIError apiError) {
-            LOGGER.error("Error while detect language. " + apiError);
+            log.error("Error while detect language. " + apiError);
             return ContextReverseLanguage.NOT_FOUND;
         }
 

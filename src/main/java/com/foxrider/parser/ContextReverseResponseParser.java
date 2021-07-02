@@ -7,6 +7,7 @@ import com.google.common.base.Strings;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Parse ContextReverseResponse to lines of text with \n
  */
+@Slf4j
 @Getter
 @Setter
 @AllArgsConstructor
@@ -29,6 +31,7 @@ public class ContextReverseResponseParser implements ResponseParser {
 
         // response may be empty
         if (response == null || response.getTranslation() == null || response.getTranslation().size() == 0) {
+            log.warn("ContextReverseResponseParser. Response from context reverso is null or there is no tranlations");
             return builder.toString();
         }
 

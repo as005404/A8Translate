@@ -3,8 +3,10 @@ package com.foxrider.utils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
+@Slf4j
 @NoArgsConstructor
 @AllArgsConstructor
 public class CamelCaseUtils {
@@ -18,6 +20,7 @@ public class CamelCaseUtils {
 
     public String divideCamelCaseIntoLowerCaseWordsOrDefault() {
         if (!isCamelCase()) {
+            log.info("CamelCaseUtils. Text {} is not camelcase", selectedText);
             return selectedText;
         }
 
