@@ -1,6 +1,10 @@
 package com.foxrider.utils;
 
 import com.google.common.base.Strings;
+import com.intellij.codeInsight.lookup.LookupElement;
+import com.intellij.codeInsight.lookup.LookupElementBuilder;
+import com.intellij.codeInsight.lookup.LookupManager;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.ui.popup.Balloon;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
@@ -9,6 +13,8 @@ import com.intellij.ui.JBColor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
+import java.util.List;
+
 
 @Slf4j
 public class TranslationUtils {
@@ -17,12 +23,12 @@ public class TranslationUtils {
     public static void showPopupWindow(Editor editor, String result) {
         if (Strings.isNullOrEmpty(result)) {
             log.info("TranslationUtils. No translation result");
-            buildBaloon(editor, MESSAGE_WHEN_RESULT_IS_EMPTY);
+            buildBalloon(editor, MESSAGE_WHEN_RESULT_IS_EMPTY);
         }
-        buildBaloon(editor, result);
+        buildBalloon(editor, result);
     }
 
-    private static void buildBaloon(Editor editor, String result) {
+    private static void buildBalloon(Editor editor, String result) {
         JBPopupFactory.getInstance()
                 .createHtmlTextBalloonBuilder(result, null, new JBColor(new Color(255, 192, 203), Gray._68), null)
                 .setFadeoutTime(15000)
@@ -30,4 +36,22 @@ public class TranslationUtils {
                 .createBalloon()
                 .show(JBPopupFactory.getInstance().guessBestPopupLocation(editor), Balloon.Position.below);
     }
+
+
+    public static void showLookup(Editor editor, List<String> translatedText) {
+        if (translatedText == null || translatedText.size() == 0) {
+            showPopupWindow(editor, MESSAGE_WHEN_RESULT_IS_EMPTY);
+        }
+        if (editor != null && editor.getProject() != null) {
+            LookupManager lookupManager = LookupManager.getInstance(editor.getProject());
+            ApplicationManager.getApplication().invokeLater(() -> lookupManager.showLookup(editor, getProposeList(translatedText)));
+        }
+    }
+
+    private static LookupElement[] getProposeList(List<String> translations) {
+        return translations.stream()
+                .map(LookupElementBuilder::create)
+                .toArray(LookupElement[]::new);
+    }
+
 }

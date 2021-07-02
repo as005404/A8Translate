@@ -1,6 +1,8 @@
 package com.foxrider.parser;
 
+import java.util.List;
+
 public interface ResponseParser {
 
-    String parse();
+    List<String> parse();
 }

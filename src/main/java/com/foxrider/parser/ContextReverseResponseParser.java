@@ -26,13 +26,12 @@ public class ContextReverseResponseParser implements ResponseParser {
     private ContextReverseResponse response;
 
     @Override
-    public String parse() {
-        StringBuilder builder = new StringBuilder();
+    public List<String> parse() {
 
         // response may be empty
         if (response == null || response.getTranslation() == null || response.getTranslation().size() == 0) {
-            log.warn("ContextReverseResponseParser. Response from context reverso is null or there is no tranlations");
-            return builder.toString();
+            log.warn("ContextReverseResponseParser. Response from context reverso is null or there is no translations");
+            return new ArrayList<>();
         }
 
         List<String> translate = new ArrayList<>(response.getTranslation());
@@ -48,13 +47,11 @@ public class ContextReverseResponseParser implements ResponseParser {
             translate.addAll(fromResults);
         }
 
-        translate.stream()
+        return translate.stream()
                 .map(String::toLowerCase)
                 .distinct()
                 .filter(x -> !Strings.isNullOrEmpty(x))
-                .limit(TRANSLATION_LIMIT)
-                .forEach(x -> builder.append(x).append("\n"));
+                .collect(Collectors.toList());
 
-        return builder.toString();
     }
 }

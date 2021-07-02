@@ -13,9 +13,10 @@ import com.intellij.openapi.editor.Editor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Objects;
 
-//todo: make listener on balloon when click on balloon with translation it will replace selected text
+// todo: fix bug when too long text is disappearing
 @Slf4j
 public class TranslateAction extends AnAction {
 
@@ -32,7 +33,7 @@ public class TranslateAction extends AnAction {
 
         ContextReverseLanguage detectedLanguage = DefaultLanguageDetector.detectLanguage(selectedText);
         AppSettingsState settings = AppSettingsState.getInstance();
-        String translatedText;
+        List<String> translatedText;
 
         if (detectedLanguage.equals(ContextReverseLanguage.valueOf("NOT_FOUND"))) {
 
@@ -48,7 +49,7 @@ public class TranslateAction extends AnAction {
                         selectedText
                 );
 
-                TranslationUtils.showPopupWindow(editor, translatedText);
+                TranslationUtils.showLookup(editor, translatedText);
             }
         } else {
             translatedText = new ContextReverseTranslator().getTranslationForText(
@@ -57,11 +58,11 @@ public class TranslateAction extends AnAction {
                     selectedText
             );
 
-            TranslationUtils.showPopupWindow(editor, translatedText);
+            TranslationUtils.showLookup(editor, translatedText);
         }
     }
 
-
+    // todo: mby make it work before indexes
     @Override
     public boolean isDumbAware() {
         return false;
