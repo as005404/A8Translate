@@ -1,10 +1,14 @@
 <idea-plugin>
     <id>com.foxrider.AITranslate+</id>
-    <name>AITranslate+</name>
-    <vendor email="isachenko.foxrider@yandex.by" url="">MyCompany</vendor>
+    <name>AnotherOneTranslator</name>
+    <vendor email="isachenko.foxrider@yandex.by" url="">Foxrider Ltd.</vendor>
 
     <description>
-        Fork of AITranslate with some improvements
+        plugin for text translation with some features:
+        - translate from couple languages to target language
+        - translate camelCase and PascalCase class', methods, and variables names
+        - can choose from several translation and paste it immediately
+        - when selecting target language it will translate into english
     </description>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
