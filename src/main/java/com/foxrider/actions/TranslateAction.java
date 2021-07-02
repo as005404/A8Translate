@@ -25,7 +25,10 @@ public class TranslateAction extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
         Editor editor = event.getData(PlatformDataKeys.EDITOR);
-        // todo: assert editor
+        if(editor == null){
+            log.info("TranslateAction. Editor is null");
+            return;
+        }
         String selectedText = Objects.requireNonNull(editor.getSelectionModel().getSelectedText());
 
         if (StringUtils.isEmpty(selectedText)) {
