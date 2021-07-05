@@ -16,7 +16,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Objects;
 
-// todo: fix bug when too long text is disappearing
 @Slf4j
 public class TranslateAction extends AnAction {
 
@@ -37,8 +36,8 @@ public class TranslateAction extends AnAction {
 
         if (detectedLanguage.equals(ContextReverseLanguage.valueOf("NOT_FOUND"))) {
 
-            TranslationUtils.showPopupWindow(editor, "This language is not supported.\n" +
-                    "List of supported languages: [en, ru, fr, pl, it, es, de]");
+            TranslationUtils.showPopupWindow(editor, List.of("This language is not supported.\n" +
+                    "List of supported languages: [en, ru, fr, pl, it, es, de]"));
         } else if (detectedLanguage.equals(ContextReverseLanguage.valueFor(settings.targetLanguage))) {
             // if language is not english and equal to our target language then translate selected text to english
             if (!settings.targetLanguage.equalsIgnoreCase(ContextReverseLanguage.ENGLISH.detectedLang)) {
@@ -58,11 +57,10 @@ public class TranslateAction extends AnAction {
                     selectedText
             );
 
-            TranslationUtils.showLookup(editor, translatedText);
+            TranslationUtils.showPopupWindow(editor, translatedText);
         }
     }
 
-    // todo: mby make it work before indexes
     @Override
     public boolean isDumbAware() {
         return false;
