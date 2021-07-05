@@ -1,5 +1,5 @@
 <idea-plugin>
-    <id>com.foxrider.AITranslate+</id>
+    <id>com.foxrider.AnotherOneTranslator</id>
     <name>AnotherOneTranslator</name>
     <vendor email="isachenko.foxrider@yandex.by" url="">Foxrider Ltd.</vendor>
 
@@ -8,7 +8,7 @@
         - translate from couple languages to target language
         - translate camelCase and PascalCase class', methods, and variables names
         - can choose from several translation and paste it immediately
-        - when selecting target language it will translate into english
+        - when selecting target language it will translate into english and allows to replace selected text
     </description>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
@@ -19,7 +19,7 @@
         <applicationService serviceImplementation="com.foxrider.settings.AppSettingsState"/>
         <applicationConfigurable parentId="tools" instance="com.foxrider.settings.AppSettingsConfigurable"
                                  id="org.intellij.sdk.settings.AppSettingsConfigurable"
-                                 displayName="AITranslate+ Settings"/>
+                                 displayName="AnotherOneTranslator Settings"/>
     </extensions>
 
     <actions>
