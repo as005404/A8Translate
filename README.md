@@ -12,11 +12,13 @@ Plugin for text translation with some features:
 - Translate from couple languages to target language just press Alt+T
   <p align="center">
     <img src="/img/2.png" title="Settings">
-    <br/>
+      <br/>
+        Example of translation:
+      <br/>
     <img src="/img/3.png" title="Example of translation">
   </p>
 
-- Translate camelCase and PascalCase class', methods, and variables names
+- Translate camelCase and PascalCase class, methods, and variables names
   <p align="center">
      <img src="/img/4.png" title="CamelCase">
   </p>
