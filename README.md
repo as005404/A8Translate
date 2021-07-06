@@ -10,6 +10,7 @@ Plugin for text translation with some features:
   </p>
 
 - Translate from couple languages to target language just press Alt+T
+- Do as settings say i.e. Take a token from detectlanguage.com, take user-agent from your browser(if that user-agent doesn't work) and choose target language
   <p align="center">
     <img src="/img/2.png" title="Settings">
       <br/>
